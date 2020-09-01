@@ -4,7 +4,7 @@
     flex-grow: 1;
     margin: 1px;
     flex-basis: 100%;
-    min-height: 20px;
+    min-height: 25px;
 }
 
 .revealed {
