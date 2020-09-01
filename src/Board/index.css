@@ -1,0 +1,15 @@
+.board {
+    width: 100%;
+    color: white;
+    margin-top: 10px;
+    overflow: auto;
+    height: 70vh
+}
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}

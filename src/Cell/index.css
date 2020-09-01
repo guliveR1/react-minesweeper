@@ -1,0 +1,12 @@
+.col {
+    background-color: #20639b;
+    padding: 10px;
+    flex-grow: 1;
+    margin: 1px;
+    flex-basis: 100%;
+    min-height: 20px;
+}
+
+.revealed {
+    background-color: #2575b6;
+}
