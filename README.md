@@ -1,1 +1,1 @@
-# react-minesweeper
+This is a minesweeper app.
