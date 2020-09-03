@@ -5,8 +5,9 @@
     margin: 1px;
     flex-basis: 100%;
     min-height: 25px;
+    min-width: 25px;
 }
 
 .revealed {
-    background-color: #2575b6;
+    background-color: #3390db;
 }

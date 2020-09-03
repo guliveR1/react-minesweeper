@@ -94,22 +94,32 @@ function revealAll(board) {
     for (let row of board) {
         for (let cell of row) {
             cell.revealed = true;
+            board[cell.rowIndex][cell.colIndex] = {...cell};
         }
     }
 }
 
 function revealSorroundingCells(board, cell) {
-    cell.revealed = true;
+    let stack = [];
+    let currCell = cell;
 
-    const sorroundingCells = getSorroundingCells(board, cell);
-    sorroundingCells.forEach((sorroundingCell) => {
-        revealCell(board, sorroundingCell);
-    });
+    while (currCell) {
+        currCell.revealed = true;
+        board[currCell.rowIndex][currCell.colIndex] = {...currCell};
+
+        if (currCell.value === 0) {
+            const sorroundingCells = getSorroundingCells(board, currCell).filter(sorroundingCell => !sorroundingCell.revealed);
+
+            stack = [...stack, ...sorroundingCells];
+        }
+
+        currCell = stack.pop();
+    }    
 }
 
 export function revealCell(board, cell) {
     // If the cell is not revealed, reveal it
-    if (!cell.revealed) {
+    if (!cell.revealed && !cell.flagged) {
         // If the cell contains a bomb reveal all and return true
         if (cell.value === -1) {
             revealAll(board);
@@ -121,15 +131,17 @@ export function revealCell(board, cell) {
             return false;
         } else {
             cell.revealed = true;
+            board[cell.rowIndex][cell.colIndex] = {...cell};
 
             return false;
         }
     }
 }
 
-export function flagCell(cell) {
+export function toggleFlagForCell(board, cell) {
     // Change the flag status if its not revealed
     if (!cell.revealed) {
         cell.flagged = !cell.flagged;
+        board[cell.rowIndex][cell.colIndex] = {...cell};
     }
 }
