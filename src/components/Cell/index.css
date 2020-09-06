@@ -10,4 +10,9 @@
 
 .revealed {
     background-color: #3390db;
+    opacity: 1 !important;
+}
+
+.superman {
+    opacity: 0.5;
 }

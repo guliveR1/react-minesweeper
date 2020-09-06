@@ -1,4 +1,9 @@
-import {REVEAL_CELL, TOGGLE_FLAG, START_NEW_GAME} from '../constants/actionType';
+import {
+    REVEAL_CELL, 
+    TOGGLE_FLAG, 
+    START_NEW_GAME, 
+    TOGGLE_SUPERMAN
+} from '../constants/actionType';
 
 export const revealCell = (cell) => {
     return {
@@ -25,6 +30,15 @@ export const startNewGame = (width, height, numOfMines) => {
             width,
             height,
             numOfMines
+        }
+    }
+}
+
+export const toggleSuperman = (active) => {
+    return {
+        type: TOGGLE_SUPERMAN,
+        payload: {
+            active
         }
     }
 }

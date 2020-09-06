@@ -1,5 +1,6 @@
 {
-    "defaultWidth": 10,
-    "defaultHeight": 10,
-    "defaultNumOfMines": 10
+    "defaultWidth": 15,
+    "defaultHeight": 15,
+    "defaultNumOfMines": 10,
+    "virtualizeAfter": 400
 }

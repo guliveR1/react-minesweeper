@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.css';
 import HeadBar from '../HeadBar';
 import Board from '../Board';
-import {useSelector} from 'react-redux';
+import GameResult from '../GameResult';
 
 function MineSweeper() {
   return (
     <div className="mine-sweeper">
         <HeadBar />
         <Board />
+        <GameResult />
     </div>
   );
 }

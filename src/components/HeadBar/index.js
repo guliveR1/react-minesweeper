@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import './index.css';
 import {useSelector, useDispatch} from 'react-redux';
-import {startNewGame} from '../../actions/board';
+import {startNewGame, toggleSuperman} from '../../actions/board';
 
 function HeadBar() {
   const [width, setWidth] = useState(useSelector(state => state.boardReducer.width));
   const [height, setHeight] = useState(useSelector(state => state.boardReducer.height));
   const [numOfMines, setNumOfMines] = 
     useState(useSelector(state => state.boardReducer.numOfMines));
+  const flagsLeft = useSelector(state => state.boardReducer.flagsLeft);
   const dispatch = useDispatch();
 
   return (
@@ -41,13 +42,16 @@ function HeadBar() {
         
       <div className="actions">
         <label>
-          <input type="checkbox" />
+          <input 
+            type="checkbox" 
+            onChange={(event) => dispatch(toggleSuperman(event.target.checked))} 
+          />
           Superman?
         </label>
         <button onClick={() => dispatch(startNewGame(width, height, numOfMines))}>
           New game
           </button>
-        Flags left: 10
+        Flags left: {flagsLeft}
       </div>
     </div>
   );

@@ -89,28 +89,20 @@ function populateNumberCells(board) {
     }
 }
 
-function revealAll(board) {
-    // Iterate through the board and reveal the cells
-    for (let row of board) {
-        for (let cell of row) {
-            cell.revealed = true;
-            board[cell.rowIndex][cell.colIndex] = {...cell};
-        }
-    }
-}
-
 function revealSorroundingCells(board, cell) {
     let stack = [];
     let currCell = cell;
 
     while (currCell) {
-        currCell.revealed = true;
-        board[currCell.rowIndex][currCell.colIndex] = {...currCell};
-
-        if (currCell.value === 0) {
-            const sorroundingCells = getSorroundingCells(board, currCell).filter(sorroundingCell => !sorroundingCell.revealed);
-
-            stack = [...stack, ...sorroundingCells];
+        if (!currCell.flagged) {
+            currCell.revealed = true;
+            board[currCell.rowIndex][currCell.colIndex] = {...currCell};
+    
+            if (currCell.value === 0) {
+                const sorroundingCells = getSorroundingCells(board, currCell).filter(sorroundingCell => !sorroundingCell.revealed);
+    
+                stack = [...stack, ...sorroundingCells];
+            }
         }
 
         currCell = stack.pop();
@@ -121,27 +113,17 @@ export function revealCell(board, cell) {
     // If the cell is not revealed, reveal it
     if (!cell.revealed && !cell.flagged) {
         // If the cell contains a bomb reveal all and return true
-        if (cell.value === -1) {
-            revealAll(board);
-            
-            return true;
-        } else if(cell.value === 0) {
+        if (cell.value === 0) {
             revealSorroundingCells(board, cell);
-
-            return false;
         } else {
             cell.revealed = true;
             board[cell.rowIndex][cell.colIndex] = {...cell};
-
-            return false;
         }
     }
 }
 
 export function toggleFlagForCell(board, cell) {
-    // Change the flag status if its not revealed
-    if (!cell.revealed) {
-        cell.flagged = !cell.flagged;
-        board[cell.rowIndex][cell.colIndex] = {...cell};
-    }
+    // Chnage flag status
+    cell.flagged = !cell.flagged;
+    board[cell.rowIndex][cell.colIndex] = {...cell};
 }
