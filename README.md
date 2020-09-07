@@ -1,11 +1,14 @@
 # React MineSweeper
 
-This is a minesweeper app written with react.
+This is a minesweeper app written with react.  
 This app is using react-window in order to render large boards.
 
 ## Installation
 
-Use npm to install dependencies
+There is a live demo of this application [here](https://guliver1.github.io/react-minesweeper/),
+
+You can also run a local envrionment:  
+use npm to install dependencies
 
 ```
 npm i
