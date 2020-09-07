@@ -27,6 +27,11 @@
     box-sizing: border-box;
 }
 
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
 .actions {
     display: flex;
     justify-content: space-between;
@@ -57,4 +62,10 @@
 .actions > button:active {
 	position: relative;
     top: 1px;
+}
+.actions > button:disabled {
+    opacity: 0.5;
+    background: linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
+    background-color: #b8e356;
+    cursor: not-allowed;
 }

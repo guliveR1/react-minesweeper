@@ -7,6 +7,7 @@ import { FixedSizeGrid as Grid } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 function renderBoard(boardWidth, boardHeight) {
+  // If the board is large enough, virtualize it(lazy loading)
   if (boardWidth * boardHeight > config.virtualizeAfter) {
     return <AutoSizer>
       {({ height, width }) => (
@@ -24,6 +25,7 @@ function renderBoard(boardWidth, boardHeight) {
     </AutoSizer>;
   }
 
+  // Return width X height cells
   return Array.from({length: boardWidth}, (_, rowIndex) => 
     <div key={rowIndex} className="row">
     {

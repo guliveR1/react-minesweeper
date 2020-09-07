@@ -28,33 +28,25 @@ const boardReducer = (state = initialState,  action) => {
         case REVEAL_CELL:
             revealCell(state.board, action.payload.cell);
     
-            // If the cell is a mine
-            if (action.payload.cell.value === -1) {
-                state.lost = true;
-            }
+            // If the cell is a mine set lost as true
+            state.lost = action.payload.cell.value === -1 && !action.payload.cell.flagged;
 
             return state;
         case TOGGLE_FLAG:
-            // Change the flag status if its not revealed
-            if (action.payload.cell.revealed) return state;
+            const cell = action.payload.cell;
 
             // Check if there are enough flags left
-            if (!action.payload.cell.flagged && state.flagsLeft === 0) {
+            if (!cell.flagged && state.flagsLeft === 0) {
                 Swal.fire('Oh no!', 'You do not have any more flags to place.', 'error');
                 return state;
             }
 
             // Change flag status
-            toggleFlagForCell(state.board, action.payload.cell);
+            toggleFlagForCell(state.board, cell);
 
-            // Increase left flags if removed flag / decrease id added flag
-            if (action.payload.cell.flagged) {
-                state.flagsLeft--;
-                if (action.payload.cell.value === -1) state.flaggedMines++;
-            } else {
-                state.flagsLeft++;
-                if (action.payload.cell.value === -1) state.flaggedMines--;
-            }
+            // Increase or decrease left flags and flaggedMines depending on the action
+            state.flagsLeft += cell.flagged ? -1 : 1;
+            state.flaggedMines += cell.value === -1 ? cell.flagged ? 1 : -1 : 0;
             
             return state;
         case START_NEW_GAME:
@@ -75,7 +67,7 @@ const boardReducer = (state = initialState,  action) => {
                 superman: state.superman
             };
         case TOGGLE_SUPERMAN:
-            state.superman = action.payload.active;
+            state.superman = !state.superman;
             
             return state;
         default:

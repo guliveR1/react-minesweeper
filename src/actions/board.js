@@ -36,9 +36,6 @@ export const startNewGame = (width, height, numOfMines) => {
 
 export const toggleSuperman = (active) => {
     return {
-        type: TOGGLE_SUPERMAN,
-        payload: {
-            active
-        }
+        type: TOGGLE_SUPERMAN
     }
 }
