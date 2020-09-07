@@ -9,7 +9,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 function renderBoard(boardWidth, boardHeight) {
   // If the board is large enough, virtualize it(lazy loading)
   if (boardWidth * boardHeight > config.virtualizeAfter) {
-    return <AutoSizer>
+    return <AutoSizer data-test="grid">
       {({ height, width }) => (
         <Grid
           columnCount={boardHeight}
@@ -27,7 +27,7 @@ function renderBoard(boardWidth, boardHeight) {
 
   // Return width X height cells
   return Array.from({length: boardWidth}, (_, rowIndex) => 
-    <div key={rowIndex} className="row">
+    <div key={rowIndex} className="row" data-test="row">
     {
       Array.from({length: boardHeight}, (_, colIndex) => <Cell 
                   key={colIndex + '' + rowIndex} 
@@ -39,11 +39,15 @@ function renderBoard(boardWidth, boardHeight) {
 }
 
 function Board() {
-  const width = useSelector(state =>  state.boardReducer.width);
-  const height = useSelector(state =>  state.boardReducer.height);
+  const width = useSelector(state => state.boardReducer.width);
+  const height = useSelector(state => state.boardReducer.height);
   
   return (
-    <div className="board" style={{overflow: width * height > config.virtualizeAfter ? 'hidden' : 'auto'}}>
+    <div 
+      className="board" 
+      data-test="board" 
+      style={{overflow: width * height > config.virtualizeAfter ? 'hidden' : 'auto'}}
+    >
       {renderBoard(width, height)}
     </div>
   );

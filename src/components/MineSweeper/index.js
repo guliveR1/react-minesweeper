@@ -6,7 +6,7 @@ import GameResult from '../GameResult';
 
 function MineSweeper() {
   return (
-    <div className="mine-sweeper">
+    <div className="mine-sweeper" data-test="mine-sweeper">
         <HeadBar />
         <Board />
         <GameResult />

@@ -35,6 +35,8 @@ const boardReducer = (state = initialState,  action) => {
         case TOGGLE_FLAG:
             const cell = action.payload.cell;
 
+            if (cell.revealed) return state;
+
             // Check if there are enough flags left
             if (!cell.flagged && state.flagsLeft === 0) {
                 Swal.fire('Oh no!', 'You do not have any more flags to place.', 'error');

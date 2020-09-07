@@ -41,8 +41,8 @@ function HeadBar() {
   const dispatch = useDispatch();
 
   return (
-    <div className="head-bar">
-      <div className="input-group">
+    <div className="head-bar" data-test="head-bar">
+      <div className="input-group" data-test="width-input">
         <label>Width:</label> 
         <input 
           type="number" 
@@ -51,7 +51,7 @@ function HeadBar() {
         />
       </div>
 
-      <div className="input-group">
+      <div className="input-group" data-test="height-input">
         <label>Height:</label> 
         <input 
           type="number" 
@@ -60,7 +60,7 @@ function HeadBar() {
         />
       </div>
       
-      <div className="input-group">
+      <div className="input-group" data-test="mines-input">
         <label>Mines:</label> 
         <input 
           type="number" 
@@ -69,9 +69,10 @@ function HeadBar() {
         />
       </div>
         
-      <div className="actions">
+      <div className="actions" data-test="head-bar-actions">
         <label>
           <input 
+            data-test="superman-checkbox"
             type="checkbox" 
             onChange={() => dispatch(toggleSuperman())} 
           />
@@ -80,11 +81,12 @@ function HeadBar() {
 
         <button 
           onClick={() => dispatchNewGame(width, height, numOfMines, dispatch)}
+          data-test="new-game-button"
         >
           New game
         </button>
 
-        Flags left: {flagsLeft}
+        <span data-test="flags-left">Flags left: {flagsLeft}</span>
       </div>
     </div>
   );

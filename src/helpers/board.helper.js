@@ -128,7 +128,7 @@ export function revealCell(board, cell) {
 }
 
 export function toggleFlagForCell(board, cell) {
-    // Chnage flag status
+    // Change flag status
     cell.flagged = !cell.flagged;
     board[cell.rowIndex][cell.colIndex] = {...cell};
 }

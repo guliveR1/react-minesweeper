@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import bomb from '../../assets/images/mine.png';
+import mine from '../../assets/images/mine.png';
 import explode from '../../assets/images/explode.png';
 import flag from '../../assets/images/flag.png';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,7 +9,7 @@ import {revealCell, toggleFlag} from '../../actions/board';
 function renderCell(cell, superman) {
   // If the cell is flagged render flag image
   if (cell.flagged) {
-    return <img width="15" alt="flag" src={flag} />;
+    return <img width="15" data-test="flag" alt="flag" src={flag} />;
   }
 
   // If the cell is not revealed and superman mode is off render nothing
@@ -17,12 +17,12 @@ function renderCell(cell, superman) {
     return '';
   };
 
-  // If the cell is a bomb and is revealed render boom image, 
+  // If the cell is a mine and is revealed render boom image, 
   // if the cell is not revealed and superman mode is on render mine image
   if (cell.value === -1 && (cell.revealed || superman)) {
     return cell.revealed ? 
-      <img width="20" src={explode} alt="explode" /> : 
-      <img width="20" src={bomb} alt="bomb" />;
+      <img width="20" data-test="explode" src={explode} alt="explode" /> : 
+      <img width="20" data-test="mine" src={mine} alt="mine" />;
   };
 
   return cell.value === 0 ? '' : cell.value;
@@ -35,7 +35,7 @@ function handleCellClick(event, cell, dispatch) {
     if (event.shiftKey) {
       dispatch(toggleFlag(cell));
     } else {
-      dispatch(revealCell(cell));
+      if (!cell.flagged) dispatch(revealCell(cell));
     }
   }
 }
@@ -53,6 +53,7 @@ function Cell({rowIndex, columnIndex, style}) {
         ...style, 
         border: '1px solid black'
       }}
+      data-test="cell"
     >
         {renderCell(cell, superman)}
     </div>
